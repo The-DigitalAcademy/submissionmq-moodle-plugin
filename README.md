@@ -104,7 +104,7 @@ The plugin sends a **JSON** object in the body of the POST request to the autogr
 |`timecreated`|Integer|Unix timestamp when the submission was created.
 |`assignmentrubric`|Object|The defined rubric criteria and levels for the assignment (if applicable).
 
-**Example of the `assignmentrubric` object (part of the overall payload):**
+**Example of the payload:**
 
 JSON
 
