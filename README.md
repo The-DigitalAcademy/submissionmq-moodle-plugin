@@ -109,18 +109,31 @@ The plugin sends a **JSON** object in the body of the POST request to the autogr
 JSON
 
 ```
-"assignmentrubric": {
-  "name": "Rubric Name",
-  "description": "Rubric Description",
-  "criteria": [
-    {
-      "criterion": "documentation",
-      "levels": [
-        {"definition": "little to no documentation", "score": 0},
-        {"definition": "good documentation", "score": 10}
-      ]
-    },
-    // ... more criteria
-  ]
+{
+  "onlinetextid": "30",
+  "submissionid": "1",
+  "onlinetext": "<p>https://github.com/The-DigitalAcademy/moodle-local-autograder-plugin</p>",
+  "userid": "2",
+  "status": "submitted",
+  "courseid": "2",
+  "assignmentid": "1",
+  "assignmentname": "Coding Project",
+  "assignmentintro": "<p>Project introduction</p>",
+  "assignmentactivity": "<p>project instructions: submit a link to your github repo</p>",
+  "assignmentgrade": "100",
+  "assignmentrubric": {
+    "name": "Rubric Name",
+    "description": "Rubric Description",
+    "criteria": [
+      {
+        "criterion": "documentation",
+        "levels": [
+          {"definition": "little to no documentation", "score": "0.00000"},
+          {"definition": "good documentation", "score": "25.00000"}
+        ]
+      },
+      // ... more criteria
+    ]
+  }
 }
 ```
