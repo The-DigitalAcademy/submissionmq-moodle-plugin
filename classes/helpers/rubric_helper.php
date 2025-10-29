@@ -45,9 +45,11 @@ class rubric_helper {
             ]);
 
             $rubric_criteria[] = [
-                'criterion' => $criterion->description,
+                'criterionid' => $criterion->id,
+                'criteriondescription' => $criterion->description,
                 'levels' => array_values(array_map(function($level) {
                     return [
+                        'id' => $level->id,
                         'definition' => $level->definition,
                         'score' => $level->score
                     ];
