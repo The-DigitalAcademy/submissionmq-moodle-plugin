@@ -126,10 +126,11 @@ JSON
     "description": "Rubric Description",
     "criteria": [
       {
+        "criterionid": "1",
         "criterion": "documentation",
         "levels": [
-          {"definition": "little to no documentation", "score": "0.00000"},
-          {"definition": "good documentation", "score": "25.00000"}
+          {"id": "1", "definition": "little to no documentation", "score": "0.00000"},
+          {"id": "2", "definition": "good documentation", "score": "25.00000"}
         ]
       },
       // ... more criteria
