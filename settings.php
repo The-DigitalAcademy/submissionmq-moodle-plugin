@@ -1,31 +1,65 @@
 <?php
-// local/autograder/settings.php
+// local/submissionmq/settings.php
 
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
 
-    // Add a new settings page for the local plugin.
-    $settings = new admin_settingpage('local_autograder', get_string('pluginname', 'local_autograder'));
-
-    // Create a new settings category under 'Local plugins' if it doesn't exist
+    // Add a new settings page under 'Local plugins'.
+    $settings = new admin_settingpage('local_submissionmq', get_string('pluginname', 'local_submissionmq'));
     $ADMIN->add('localplugins', $settings);
 
-    // Setting for the Autograder API Endpoint
+
+    // Message broker host
     $settings->add(new admin_setting_configtext(
-        'local_autograder/api_endpoint', // Setting name
-        get_string('api_endpoint', 'local_autograder'), // Title
-        get_string('api_endpoint_desc', 'local_autograder'), // Description
-        'http://localhost:3000/submission', // Default value
-        PARAM_URL // Parameter type
+        'local_submissionmq/host',
+        get_string('host', 'local_submissionmq'),
+        get_string('host_desc', component: 'local_submissionmq'),
+        'localhost',
+        PARAM_RAW // Store as raw string (sensitive info)
     ));
 
-    // Setting for an optional API Key/Secret (recommended for security)
+    // Message broker port
     $settings->add(new admin_setting_configtext(
-        'local_autograder/api_key',
-        get_string('api_key', 'local_autograder'),
-        get_string('api_key_desc', 'local_autograder'),
-        '', // Default value: empty
+        'local_submissionmq/port',
+        get_string('port', 'local_submissionmq'),
+        get_string('port_desc', component: 'local_submissionmq'),
+        '5672',
+        PARAM_INT // Store as raw string (sensitive info)
+    ));
+
+    // Message broker exchange name
+    $settings->add(new admin_setting_configtext(
+        'local_submissionmq/exchange',
+        get_string('exchange', 'local_submissionmq'),
+        get_string('exchange_desc', component: 'local_submissionmq'),
+        'moodle_exchange',
+        PARAM_RAW // Store as raw string (sensitive info)
+    ));
+
+    // Message broker user
+    $settings->add(new admin_setting_configtext(
+        'local_submissionmq/user',
+        get_string('user', 'local_submissionmq'),
+        get_string('user_desc', component: 'local_submissionmq'),
+        'guest',
+        PARAM_RAW // Store as raw string (sensitive info)
+    ));
+
+    // Message broker password (masked in admin UI)
+    $settings->add(new admin_setting_configpasswordunmask(
+        'local_submissionmq/password',
+        get_string('password', 'local_submissionmq'),
+        get_string('password_desc', component: 'local_submissionmq'),
+        'guest'
+    ));
+
+    // Tag prefix for filtering relevant course module tags
+    $settings->add(new admin_setting_configtext(
+        'local_submissionmq/tag_prefix',
+        get_string('tag_prefix', 'local_submissionmq'),
+        get_string('tag_prefix_desc', component: 'local_submissionmq'),
+        'mqueue_',
         PARAM_RAW // Store as raw string (sensitive info)
     ));
 }

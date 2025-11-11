@@ -1,36 +1,47 @@
 <?php
-namespace local_autograder\helpers;
+namespace local_submissionmq\helpers;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Helper class for working with tags in the context of a course module.
+ * 
+ * This class provides utility functions for interacting with Moodle's tag system
+ * 
+ * @package   local_submissionmq
+ * @category  helper
+ */
 class tag_helper {
     /**
-     * Check if an assignment activity has the autograde tag.
+     * Get course module tags that contain a specific substring.
      * 
-     * @param  int $cmid The course module ID of the assignment activity.
-     * @return bool True if the "autograde" tag is present
+     * This method fetches all tags attached to a given course module (cmid),
+     * then filters and returns only those whose names contain the provided substring.
+     * 
+     * @param int $cmid The course module ID. (ID from the `course_modules` table).
+     * @param string $substring The substring to search for within tag names.
+     * @return string[] A list of matching tag names (case-sensitive).
      */
 
-    public static function assignment_has_autograde_tag(int $cmid): bool {
+    public static function get_course_module_tags_containing(int $cmid, string $substring) {
         global $CFG, $DB;
 
-        // Make sure tag API is available
+        // Ensure the Moodle tag API functions are available.
         require_once($CFG->dirroot . '/tag/lib.php');
 
-        //  Get tags attached to this assignment activity.
+        // Get all tags attached to this course module (e.g., assignment, quiz, etc.).
         $tags = \core_tag_tag::get_item_tags_array('core', 'course_modules', $cmid);
         
         if (empty($tags)) {
-            return false;
+            return [];
         }
 
-        // Normalise and check.
-        foreach ($tags as $tagname) {
-            if (strtolower((trim($tagname))) == 'autograde') {
-                return true;
-            }
-        }
+        
+        // Filter tags to include only those that contain the specified substring.
+        $filteredtags = array_filter(array_map('trim', $tags), callback: function($tag) use ($substring) {
+            return str_contains(strtolower($tag),  strtolower($substring));
+        });
 
-        return false;
+        return $filteredtags;
     }
 }

@@ -1,19 +1,19 @@
-# 🤖 Moodle Local Autograder Plugin (`local_autograder`)
+# 🤖 Submission Message Queue Plugin (`local_submissionmq`)
 
-A Moodle local plugin that automatically sends assignment submission data to a configured external autograder service upon submission, provided the assignment activity is tagged with 'autograde'.
+A **Moodle local plugin** that sends assignment submission data to RabbitMQ message queues for asynchronous processing, grading automation, or integration with external systems.
 
 ---
 
 ## 🚀 What It Does
 
-The `local_autograder` plugin observes the Moodle event `\mod_assign\event\assessable_submitted`. When a student submits an assignment:
+This plugin listens for assignment submission events and, if the submission is tagged with a configured prefix, sends the relevant data to RabbitMQ queues. The data includes:
 
-1.  It **checks if the assignment activity has the tag 'autograde'**. If not, the process is skipped silently.
-2.  If the 'autograde' tag is present, it **compiles the submission, user, assignment, and rubric data** into a JSON payload.
-3.  It **sends this JSON payload** via an HTTP POST request to a **configurable external API endpoint** (your autograder service). An optional **API Key** can be included in the headers for authentication.
-4.  It **logs the success or failure** of the API call using Moodle's debugging system.
+- Online text submissions (if present)
+- Assignment details (name, intro, grade, etc.)
+- User and course information
+- Assignment grading rubric (if configured)
 
-This allows your external autograder service to receive the necessary data to process the submission and provide feedback or grades back to Moodle (via a separate mechanism).
+It allows integration with external systems for automatic grading, analytics, or notifications.
 
 ---
 
@@ -21,38 +21,46 @@ This allows your external autograder service to receive the necessary data to pr
 
 ### Prerequisites
 
-- A Moodle instance (requires Moodle version **4.0** or later, based on `version.php`).
 - Administrator access to the Moodle instance.
+- Moodle 4.x or later
+- PHP 8+
+- [Composer](https://getcomposer.org/doc/00-intro.md) (for `php-amqplib/php-amqplib`)
+- A running [RabbitMQ](https://www.rabbitmq.com/docs/download) instance accessible from the Moodle server
+- RabbitMQ credentials (username, password, host, port)
 
 ### Step-by-step Installation
 
-1.  **Download** the plugin files.
-2.  **Create a new directory** named `autograder` inside the Moodle local folder:
+1.  Download the plugin files.
+2.  Place the plugin in the `local/` directory of your Moodle installation:
 
-    Bash
+```
+moodle/
+└── local/
+└── submissionmq/
+```
 
-    ```
-    moodle/local/
-
-    ```
-
-3.  **Place the plugin files** inside the new directory.
-4.  **Log in as an administrator** to your Moodle site.
-5.  Navigate to **Site administration** $\to$ **Notifications**. Moodle will detect the new plugin and prompt you to **Install** it.
+3.  Place the plugin files inside the new directory.
+4.  Log in as an administrator to your Moodle site.
+5.  Navigate to `Site administration > Notifications`. Moodle will detect the new plugin and prompt you to Install it.
 6.  Follow the on-screen instructions to complete the installation.
 
 ### Configuration (Site Administration)
 
-After installation, you **must** configure the autograder service details:
+After installation, you must configure the autograder service details:
 
-1.  Navigate to **Site administration** $\to$ **Plugins** $\to$ **Local plugins**.
-2.  Click on the plugin link: **Local Autograder Connector**.
-3.  Configure the following settings:
+1.  Navigate to `Site Administration > Plugins > Local plugins > Submission Message Queue`
+2.  Configure the following settings:
 
-    - **Autograder API Endpoint:** Enter the full URL where assignment submission payloads should be POSTed (e.g., `https://your-autograder.com/api/submission`).
-    - **Autograder API Key/Secret (Optional):** Enter a key or secret. This is sent in the request header (`X-API-Key`) for authentication with the external service.
+| Setting           | Description                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| **RabbitMQ Host** | Hostname or IP of your RabbitMQ broker (e.g., `localhost` or `192.168.1.10`).       |
+| **RabbitMQ Port** | TCP port to connect to RabbitMQ. Default: `5672`.                                   |
+| **Exchange Name** | The exchange that messages will be published to. Usually a `fanout` exchange.       |
+| **Username**      | Username for RabbitMQ authentication (e.g., `guest`).                               |
+| **Password**      | Password for RabbitMQ authentication. Hidden in UI.                                 |
+| **Tag Prefix**    | Prefix to filter Moodle assignment tags for submissions to queue (e.g., `mqueue_`). |
 
-4.  Click **Save changes**.
+3.  Click **Save changes**.
 
 ---
 
@@ -70,18 +78,14 @@ To verify the plugin is sending the data correctly, you must enable **Developer 
 3.  Check the box for **Display debug messages**.
 4.  Click **Save changes**.
 
+This will show detailed error messages if the plugin encounters issues sending messages to RabbitMQ.
+
 ### Testing the Plugin
 
-1.  Create or find an **Assignment** activity.
-2.  **Edit the assignment settings** and under the **Tags** section, add the tag **`autograde`**.
-3.  Log in as a student and **submit** the assignment.
-4.  The submission action will trigger the plugin. If the API call is successful, you will see a message on the screen (or in the Moodle error log) similar to:
-
-    > `✅ Successfully sent submission for user [user_id] to external API.`
-
-5.  If it fails, you will see:
-
-    > `❌ Failed to send submission. HTTP Code: [code], Response: [response]`
+1.  Create an assignment and tag it with the configured prefix (e.g., mqueue_autograde).
+2.  Submit the assignment as a student.
+3.  Check RabbitMQ queues for incoming messages.
+4.  Review Moodle debugging messages if no messages appear.
 
 ---
 
