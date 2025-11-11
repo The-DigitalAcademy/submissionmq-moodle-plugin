@@ -98,7 +98,7 @@ This will show detailed error messages if the plugin encounters issues sending m
 
 ## 📦 Payload Structure
 
-The plugin sends a **JSON** object in the body of the POST request to the autograder service.
+When a submission is sent, the plugin builds a JSON payload.
 |**Key**|**Type**|**Description**
 |--|--|--|
 |`onlinetextid`|Integer|The ID of the online text submission record (if used).
@@ -114,6 +114,8 @@ The plugin sends a **JSON** object in the body of the POST request to the autogr
 |`assignmentgrade`|Integer|The maximum possible grade for the assignment.
 |`timecreated`|Integer|Unix timestamp when the submission was created.
 |`assignmentrubric`|Object|The defined rubric criteria and levels for the assignment (if applicable).
+
+Fields may be null if not applicable
 
 **Example of the payload:**
 
