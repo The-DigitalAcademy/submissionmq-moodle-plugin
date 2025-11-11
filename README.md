@@ -40,6 +40,13 @@ moodle/
 ```
 
 3.  Place the plugin files inside the new directory.
+    **using git clone:**
+
+```
+cd <moodle-root>/local
+git clone https://github.com/The-DigitalAcademy/submissionmq-moodle-plugin submissionmq
+```
+
 4.  Log in as an administrator to your Moodle site.
 5.  Navigate to `Site administration > Notifications`. Moodle will detect the new plugin and prompt you to Install it.
 6.  Follow the on-screen instructions to complete the installation.
