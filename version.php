@@ -1,5 +1,5 @@
 <?php
 
-$plugin->component = 'local_autograder';
-$plugin->version   = 2025102900;
+$plugin->component = 'local_submissionmq';
+$plugin->version   = 2025111111;
 $plugin->requires  = 2022041900;
