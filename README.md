@@ -24,9 +24,9 @@ It allows integration with external systems for automatic grading, analytics, or
 - Administrator access to the Moodle instance.
 - Moodle 4.x or later
 - PHP 8+
-- Composer (for `php-amqplib/php-amqplib`)
-- A running RabbitMQ instance accessible from the Moodle server
-- Proper RabbitMQ credentials (username, password, host, port)
+- [Composer](https://getcomposer.org/doc/00-intro.md) (for `php-amqplib/php-amqplib`)
+- A running [RabbitMQ](https://www.rabbitmq.com/docs/download) instance accessible from the Moodle server
+- RabbitMQ credentials (username, password, host, port)
 
 ### Step-by-step Installation
 
@@ -142,10 +142,3 @@ JSON
   }
 }
 ```
-
----
-
-## Resources: Setting Up RabbitMQ
-
-- [Installing RabbitMQ](https://www.rabbitmq.com/docs/download)
-- [Official RabbitMQ Documentation](https://www.rabbitmq.com/docs)
