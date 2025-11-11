@@ -1,4 +1,4 @@
-# 🤖 Submission Message Queue Plugin (`local_submissionmq`)
+# 🤖 Submission Message Queue
 
 A **Moodle local plugin** that sends assignment submission data to RabbitMQ message queues for asynchronous processing, grading automation, or integration with external systems.
 
