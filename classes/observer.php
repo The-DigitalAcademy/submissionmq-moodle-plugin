@@ -76,7 +76,7 @@ class observer {
             'userid' => $submission->userid,
             'status' => $submission->status,
             'courseid' => $event_data['courseid'],
-            'assignmentid' => $onlinetext->assignment  ?? $submission->assignment,,
+            'assignmentid' => $onlinetext->assignment  ?? $submission->assignment,
             'assignmentname' => $assignment->name ?? '',
             'assignmentintro' => $assignment->intro ?? '',
             'assignmentactivity' => $assignment->activity ?? '',
