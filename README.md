@@ -46,10 +46,14 @@ moodle/
 cd <moodle-root>/local
 git clone https://github.com/The-DigitalAcademy/submissionmq-moodle-plugin submissionmq
 ```
-
-4.  Log in as an administrator to your Moodle site.
-5.  Navigate to `Site administration > Notifications`. Moodle will detect the new plugin and prompt you to Install it.
-6.  Follow the on-screen instructions to complete the installation.
+4. install Rabbitmq PHP Client Library
+```
+cd <moodle-root>
+composer require php-amqplib/php-amqplib
+```
+5.  Log in as an administrator to your Moodle site.
+6.  Navigate to `Site administration > Notifications`. Moodle will detect the new plugin and prompt you to Install it.
+7.  Follow the on-screen instructions to complete the installation.
 
 ### Configuration (Site Administration)
 
