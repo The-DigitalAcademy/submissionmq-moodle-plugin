@@ -31,16 +31,21 @@ It allows integration with external systems for automatic grading, analytics, or
 ### Step-by-step Installation
 
 1.  Download the plugin files.
-2.  Place the plugin in the `local/` directory of your Moodle installation:
+2.  Place the plugin files in the `local/` directory of your Moodle installation.
+The directory name for the plugin files should be `submissionmq`:
 
 ```
-moodle/
-└── local/
-└── submissionmq/
+moodle-root
+└── local
+    └── submissionmq
+         └── classes/
+         └── db/
+         └── lang/
+         └── README.md
+         └── settings.php
+         └── version.php
 ```
-
-3.  Place the plugin files inside the new directory.
-    **using git clone:**
+**Use the git clone command:**
 
 ```
 cd <moodle-root>/local
