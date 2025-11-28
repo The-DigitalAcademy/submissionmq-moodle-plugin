@@ -32,7 +32,7 @@ It allows integration with external systems for automatic grading, analytics, or
 
 1.  Download the plugin files.
 2.  Place the plugin files in the `local/` directory of your Moodle installation.
-The directory name for the plugin files should be `submissionmq`:
+    The directory name for the plugin files should be `submissionmq`:
 
 ```
 moodle-root
@@ -45,17 +45,21 @@ moodle-root
          └── settings.php
          └── version.php
 ```
+
 **Use the git clone command:**
 
 ```
 cd <moodle-root>/local
 git clone https://github.com/The-DigitalAcademy/submissionmq-moodle-plugin submissionmq
 ```
+
 4. install Rabbitmq PHP Client Library
+
 ```
 cd <moodle-root>
 composer require php-amqplib/php-amqplib
 ```
+
 5.  Log in as an administrator to your Moodle site.
 6.  Navigate to `Site administration > Notifications`. Moodle will detect the new plugin and prompt you to Install it.
 7.  Follow the on-screen instructions to complete the installation.
@@ -116,6 +120,7 @@ When a submission is sent, the plugin builds a JSON payload.
 |`userid`|Integer|The ID of the user who made the submission.
 |`status`|String|The current status of the submission (e.g., 'submitted').
 |`courseid`|Integer|The ID of the course the assignment belongs to.
+| `cmid`| Integer| The Course Module ID of the assignment ( id from `course_modules` table).
 |`assignmentid`|Integer|The ID of the assignment instance (`mod_assign` table).
 |`assignmentname`|String|The name of the assignment.
 |`assignmentintro`|String|The introductory text of the assignment.
