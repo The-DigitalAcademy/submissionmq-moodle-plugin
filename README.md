@@ -143,6 +143,7 @@ JSON
   "userid": "2",
   "status": "submitted",
   "courseid": "2",
+  "cmid": "23",
   "assignmentid": "1",
   "assignmentname": "Coding Project",
   "assignmentintro": "<p>Project introduction</p>",
