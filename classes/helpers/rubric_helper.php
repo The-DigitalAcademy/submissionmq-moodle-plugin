@@ -26,7 +26,7 @@ class rubric_helper {
     public static function get_rubric_for_assignment(int $contextid): ?array {
         global $DB;
 
-        // 1️⃣ Find the grading area for this assignment context.
+        // 1. Find the grading area for this assignment context.
         $gradingarea = $DB->get_record('grading_areas', [
             'contextid' => $contextid,
             'component' => 'mod_assign',
@@ -37,7 +37,7 @@ class rubric_helper {
             return null;
         }
 
-        // 2️⃣ Get rubric definition
+        // 2. Get rubric definition
         $definition = $DB->get_record('grading_definitions', [
             'areaid' => $gradingarea->id
         ]);
@@ -46,7 +46,7 @@ class rubric_helper {
             return null;
         }
 
-        // 3️⃣ Fetch all criteria associated with this rubric definition.
+        // 3. Fetch all criteria associated with this rubric definition.
         $criteria = $DB->get_records('gradingform_rubric_criteria', [
             'definitionid' => $definition->id,
         ]);
@@ -73,7 +73,7 @@ class rubric_helper {
         }
 
 
-        // 4️⃣ Step 4: Return the assembled rubric data as an associative array.
+        // 4. Return the assembled rubric data as an associative array.
         return [
             'name' => $definition->name,
             'description' => $definition->description,

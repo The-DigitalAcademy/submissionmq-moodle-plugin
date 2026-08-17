@@ -4,7 +4,10 @@ namespace local_submissionmq\helpers;
 defined('MOODLE_INTERNAL') || die();
 
 // Load Composer dependencies for RabbitMQ (PhpAmqpLib).
-require_once __DIR__ . '/../../../../vendor/autoload.php';
+// Note: in Moodle 5.x's newer repo layout, the webroot lives in `public/`
+// while vendor/ sits at the true repo root, one level above `public/`.
+// From classes/helpers/ that means 5 levels up, not 4.
+require_once __DIR__ . '/../../../../../vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
