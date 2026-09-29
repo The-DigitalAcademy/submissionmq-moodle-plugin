@@ -18,4 +18,4 @@ $string['password'] = 'Password';
 $string['password_desc'] = 'The password associated with the RabbitMQ user account. Ensure this value is kept secure.';
 
 $string['tag_prefix'] = 'Tag Prefix';
-$string['tag_prefix_desc'] = 'A prefix string used to identify or filter Moodle tags relevant to message queue processing (for example, assignments tagged with <code>mq_*</code>).';
+$string['tag_prefix_desc'] = 'A prefix string used to identify or filter Moodle tags relevant to message queue processing (for example, assignments or quizzes tagged with <code>mqueue_*</code>).';
