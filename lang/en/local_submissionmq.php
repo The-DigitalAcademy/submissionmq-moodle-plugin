@@ -8,6 +8,9 @@ $string['host_desc'] = 'The hostname or IP address of the RabbitMQ message broke
 $string['port'] = 'RabbitMQ Port';
 $string['port_desc'] = 'The TCP port used to connect to RabbitMQ. The default is <code>5672</code> for non-SSL connections.';
 
+$string['vhost'] = 'Virtual Host';
+$string['vhost_desc'] = 'Virtual host name. defaults to <code>"/"</code>';
+
 $string['exchange'] = 'Exchange Name';
 $string['exchange_desc'] = 'The name of the RabbitMQ exchange to publish messages to. Typically configured as a <code>fanout</code> exchange for broadcasting messages to multiple queues.';
 

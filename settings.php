@@ -28,6 +28,15 @@ if ($ADMIN->fulltree) {
         PARAM_INT // Store as raw string (sensitive info)
     ));
 
+    // Message broker virtual host
+    $settings->add(new admin_setting_configtext(
+        'local_submissionmq/vhost',
+        get_string('vhost', 'local_submissionmq'),
+        get_string('vhost_desc', component: 'local_submissionmq'),
+        '/',
+        PARAM_RAW // Store as raw string (sensitive info)
+    ));
+
     // Message broker exchange name
     $settings->add(new admin_setting_configtext(
         'local_submissionmq/exchange',

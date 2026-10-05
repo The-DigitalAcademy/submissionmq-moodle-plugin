@@ -38,7 +38,7 @@ Both flows allow integration with external systems for automatic grading, analyt
 - PHP 8+
 - [Composer](https://getcomposer.org/doc/00-intro.md) (for `php-amqplib/php-amqplib`)
 - A running [RabbitMQ](https://www.rabbitmq.com/docs/download) instance accessible from the Moodle server
-- RabbitMQ credentials (username, password, host, port)
+- RabbitMQ credentials (username, password, host, port, vhost)
 
 ### Step-by-step Installation
 
@@ -95,6 +95,7 @@ After installation, you must configure the autograder service details:
 | ----------------- | --------------------------------------------------------------------------------------------------- |
 | **RabbitMQ Host** | Hostname or IP of your RabbitMQ broker (e.g., `localhost` or `192.168.1.10`).                       |
 | **RabbitMQ Port** | TCP port to connect to RabbitMQ. Default: `5672`.                                                   |
+| **Virtual Host**  | virtual host name. defaults to "/".                                                                 |
 | **Exchange Name** | The exchange that messages will be published to. Usually a `fanout` exchange.                       |
 | **Username**      | Username for RabbitMQ authentication (e.g., `guest`).                                               |
 | **Password**      | Password for RabbitMQ authentication. Hidden in UI.                                                 |

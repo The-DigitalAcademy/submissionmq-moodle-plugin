@@ -52,12 +52,13 @@ class rabbitmq_helper {
         // Retrieve RabbitMQ connection and exchange configuration from Moodle plugin settings.
         $host = get_config('local_submissionmq', 'host');
         $port = get_config('local_submissionmq', 'port');
+        $vhost = get_config('local_submissionmq', 'vhost');
         $exchange = get_config('local_submissionmq', 'exchange');
         $user = get_config('local_submissionmq', 'user');
         $password = get_config('local_submissionmq', 'password');
 
         // Establish a connection to the RabbitMQ broker.
-        $connection = new AMQPStreamConnection($host, $port, $user, $password);
+        $connection = new AMQPStreamConnection($host, $port, $user, $password, $vhost);
         $channel = $connection->channel();
 
         // Declare the exchange if it doesn't exist.
